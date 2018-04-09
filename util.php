@@ -6,19 +6,6 @@
  * Time: 10:54
  */
 
-    function getInputParam($inputParamName, $default = null)
-    {
-        $input = file_get_contents('php://input');
-        $post = json_decode($input, true);
-        if (is_array($post)) {
-            if (array_key_exists($inputParamName, $post)) {
-                return $post[$inputParamName];
-            }
-        }
-        return $default;
-    }
-
-
     function getAllContacts(){
         try {
             $json_contacts = [];
@@ -33,6 +20,20 @@
             */
             include 'contacts.html';
             return $json_contacts;
+        } catch (Exception $e) {
+            header('Unauthorized', true, 401);
+            echo 'Something went wrong';
+        }
+    }
+
+    function getContact($guid){
+        try {
+            $json_contact = null;
+            $url = 'http://contactsqs.apphb.com/Service.svc/rest/contact/byguid/'.$guid;
+            $response = callAPI('GET',$url, '');
+            $json_contact = json_decode($response, true);
+            include 'show_contact.html';
+            return $json_contact;
         } catch (Exception $e) {
             header('Unauthorized', true, 401);
             echo 'Something went wrong';

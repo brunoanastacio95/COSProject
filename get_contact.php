@@ -8,10 +8,10 @@
 
 require_once("util.php");
 
-if( $_GET["id"] )
+if( $_GET["guid"] )
 {
-    echo "ID: ". $_GET['id']. "<br />";
-   
+   // echo "ID: ". $_GET['guid']. "<br />";
+    getContact( $_GET["guid"]);
 }else{
     header('Not found', true, 404);
     echo 'Not found';

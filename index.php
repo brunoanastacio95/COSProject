@@ -5,8 +5,9 @@
  * Date: 05/04/2018
  * Time: 13:43
  */
+require_once("util.php");
+
     try {
-    require_once("util.php");
     getAllContacts();
 } catch (Exception $e) {
     header('Unauthorized', true, 401);

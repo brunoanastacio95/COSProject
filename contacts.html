@@ -10,20 +10,14 @@
         <?php
             if(count($json_contacts))
             { ?>
-            <table id="contacts" class="display" style="width:100%" border="1">
+            <table id="contacts" class="display" style="width:50%" border="1">
                 <tr>
                     <th>Id</th>
-                    <th>Birthday</th>
-                    <th>City</th>
-                    <th>Company</th>
+                    <th>Guid</th>
                     <th>Email</th>
                     <th>GivenName</th>
-                    <th>Guid</th>
-                    <th>Occupation</th>
-                    <th>Phone</th>
-                    <th>PhotoUrl</th>
-                    <th>StreetAddress</th>
                     <th>Surname</th>
+                    <th>Phone</th>
                     <th>Acções</th>
                 </tr>
                 <?php
@@ -32,18 +26,12 @@
                 {
                     echo "<tr>";
                     echo "<td>" . $i . "</td>";
-                    echo "<td>" . $contact['Birthday'] . "</td>";
-                    echo "<td>" . $contact['City'] . "</td>";
-                    echo "<td>" . $contact['Company'] . "</td>";
+                    echo "<td>" . $contact['Guid'] . "</td>";
                     echo "<td>" . $contact['Email'] . "</td>";
                     echo "<td>" . $contact['GivenName'] . "</td>";
-                    echo "<td>" . $contact['Guid'] . "</td>";
-                    echo "<td>" . $contact['Occupation'] . "</td>";
-                    echo "<td>" . $contact['Phone'] . "</td>";
-                    echo "<td>" . $contact['PhotoUrl'] . "</td>";
-                    echo "<td>" . $contact['StreetAddress'] . "</td>";
                     echo "<td>" . $contact['Surname'] . "</td>";
-                    echo "<td><a href=get_contact.php?id={$contact['Guid']}>Open</td>";
+                    echo "<td>" . $contact['Phone'] . "</td>";
+                    echo "<td><a href=get_contact.php?guid={$contact['Guid']}>Open</td>";
                     echo "</tr>";
                     $i++;
                 }
