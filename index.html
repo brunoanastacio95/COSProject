@@ -6,5 +6,47 @@
     </head>
     <body>
         <p>Contacts Orchestrator Solution</p>
+        <?php echo count($json_contacts) ?>
+
+        <?php
+            if(count($json_contacts))
+            { ?>
+            <table id="contacts" class="display" style="width:100%">
+                <tr>
+                    <th>Birthday</th>
+                    <th>City</th>
+                    <th>Company</th>
+                    <th>Email</th>
+                    <th>GivenName</th>
+                    <th>Guid</th>
+                    <th>Occupation</th>
+                    <th>Phone</th>
+                    <th>PhotoUrl</th>
+                    <th>StreetAddress</th>
+                    <th>Surname</th>
+                    <th>Acções</th>
+                </tr>";
+                <?php
+                foreach($json_contacts as $contact)
+                {
+                    echo "<tr>";
+                    echo "<td>" . $contact['Birthday'] . "</td>";
+                    echo "<td>" . $contact['City'] . "</td>";
+                    echo "<td>" . $contact['Company'] . "</td>";
+                    echo "<td>" . $contact['Email'] . "</td>";
+                    echo "<td>" . $contact['GivenName'] . "</td>";
+                    echo "<td>" . $contact['Guid'] . "</td>";
+                    echo "<td>" . $contact['Occupation'] . "</td>";
+                    echo "<td>" . $contact['Phone'] . "</td>";
+                    echo "<td>" . $contact['PhotoUrl'] . "</td>";
+                    echo "<td>" . $contact['StreetAddress'] . "</td>";
+                    echo "<td>" . $contact['Surname'] . "</td>";
+                    echo "<td><a href=contact?={$contact['Guid']}>Open</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
+            ?>
+
     </body>
 </html>
