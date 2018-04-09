@@ -5,7 +5,6 @@
  * Date: 05/04/2018
  * Time: 13:43
  */
-
     try {
     require_once("util.php");
     getAllContacts();

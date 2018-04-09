@@ -25,15 +25,13 @@
             $url = 'http://contactsqs.apphb.com/Service.svc/rest/contacts';
             $response = callAPI('GET',$url, '');
             $json_contacts = json_decode($response, true);
-
-          /* foreach($json_contacts as $contact)
+             /* foreach($json_contacts as $contact)
             {
                 echo $contact['Company']. "\n";
                 echo $contact['City'];
             }
             */
-
-            include 'index.html';
+            include 'contacts.html';
             return $json_contacts;
         } catch (Exception $e) {
             header('Unauthorized', true, 401);
