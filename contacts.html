@@ -3,6 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <title>Contacts Orchestrator Solution</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td {
+                border: 1px solid #4CAF50;
+                text-align: left;
+                padding: 8px;
+            }
+
+            th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                border: 2px solid black;
+                background-color: #4CAF50;
+                color: black;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+
+            tr:hover {
+                background-color: #aaaaaa;
+            }
+
+        </style>
     </head>
     <body>
         <h2>Contacts Orchestrator Solution</h2>
@@ -10,7 +41,7 @@
         <?php
             if(count($json_contacts))
             { ?>
-            <table id="contacts" class="display" style="width:50%" border="1">
+            <table id="contacts" class="display" style="width:70%" border="1">
                 <tr>
                     <th>Id</th>
                     <th>Guid</th>
@@ -18,21 +49,22 @@
                     <th>GivenName</th>
                     <th>Surname</th>
                     <th>Phone</th>
-                    <th>Acções</th>
+                    <th>Actions</th>
                 </tr>
                 <?php
                 $i = 1;
                 foreach($json_contacts as $contact)
                 {
-                    echo "<tr>";
+                    echo "<tr onclick=window.location='get_contact.php?guid={$contact['Guid']}'>";
                     echo "<td>" . $i . "</td>";
                     echo "<td>" . $contact['Guid'] . "</td>";
                     echo "<td>" . $contact['Email'] . "</td>";
                     echo "<td>" . $contact['GivenName'] . "</td>";
                     echo "<td>" . $contact['Surname'] . "</td>";
                     echo "<td>" . $contact['Phone'] . "</td>";
-                    echo "<td><a href=get_contact.php?guid={$contact['Guid']}>Open</td>";
+                    echo "<td><a href=get_contact.php?guid={$contact['Guid']} />Open</td>";
                     echo "</tr>";
+
                     $i++;
                 }
                 echo "</table>";

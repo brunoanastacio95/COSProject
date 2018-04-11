@@ -7,7 +7,7 @@
  */
 require_once("util.php");
 
-    try {
+try {
     getAllContacts();
 } catch (Exception $e) {
     header('Unauthorized', true, 401);

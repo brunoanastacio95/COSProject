@@ -31,6 +31,13 @@
             $json_contact = null;
             $url = 'http://contactsqs.apphb.com/Service.svc/rest/contact/byguid/'.$guid;
             $response = callAPI('GET',$url, '');
+
+            if($response == -1){
+                header('Guid invalid', true, 403);
+                echo 'Guid invalid';
+                return null;
+            }
+
             $json_contact = json_decode($response, true);
             include 'show_contact.html';
             return $json_contact;
@@ -67,7 +74,10 @@
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         // EXECUTE:
         $result = curl_exec($curl);
-        if(!$result){die("Connection Failure");}
+        if(!$result){
+            //die("Connection Failure");
+            return -1;
+        }
         curl_close($curl);
         return $result;
     }
