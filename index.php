@@ -10,6 +10,10 @@ require_once("util.php");
 try {
     getAllContacts();
 } catch (Exception $e) {
-    header('Unauthorized', true, 401);
-    echo 'Something went wrong';
+    echo ($e);
+    $title = "Unauthorized";
+    $error = "Something went wrong!";
+    $status_code = "401";
+    showErrorMessage($title, $error, $status_code);
+    return;
 }

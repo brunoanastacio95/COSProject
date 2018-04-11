@@ -8,16 +8,17 @@
 
     function getAllContacts(){
         try {
-            $json_contacts = [];
             $url = 'http://contactsqs.apphb.com/Service.svc/rest/contacts';
             $response = callAPI('GET',$url, '');
-            $json_contacts = json_decode($response, true);
-             /* foreach($json_contacts as $contact)
-            {
-                echo $contact['Company']. "\n";
-                echo $contact['City'];
+
+            if($response['result'] == -1){
+                $title = "Contacts not available";
+                $error = "Error in access Rest Contacts API ";
+                showErrorMessage($title, $error, 200);
+                return;
             }
-            */
+
+            $json_contacts = json_decode($response['result'], true);
             include 'contacts.html';
             return $json_contacts;
         } catch (Exception $e) {
@@ -32,19 +33,26 @@
             $url = 'http://contactsqs.apphb.com/Service.svc/rest/contact/byguid/'.$guid;
             $response = callAPI('GET',$url, '');
 
-            if($response == -1){
-                header('Guid invalid', true, 403);
-                echo 'Guid invalid';
-                return null;
+            if($response['result'] == -1){
+                $title = "Profile not exists!";
+                $error = "Guid invalid, profile not exists!";
+                showErrorMessage($title, $error, 200);
+                return;
             }
 
-            $json_contact = json_decode($response, true);
+            $json_contact = json_decode($response['result'], true);
             include 'show_contact.html';
             return $json_contact;
         } catch (Exception $e) {
             header('Unauthorized', true, 401);
             echo 'Something went wrong';
         }
+    }
+
+    function showErrorMessage($title, $error, $status_code){
+        header('error page', true, $status_code);
+        include 'error.html';
+        return array ($title, $error);
     }
 
     function callAPI($method, $url, $data){
@@ -72,12 +80,23 @@
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
         // EXECUTE:
         $result = curl_exec($curl);
+
+        // verificar o status code
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        if($http_code != 200){
+            $result = -1;
+        }
+
+        // se o resultado for vazio
         if(!$result){
-            //die("Connection Failure");
-            return -1;
+            $result = -1;
         }
         curl_close($curl);
-        return $result;
+
+        $response['result'] = $result;
+        $response['http_code'] = $http_code;
+        return $response;
     }

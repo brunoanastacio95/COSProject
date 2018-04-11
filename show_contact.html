@@ -2,10 +2,25 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Contacts Orchestrator Solution</title>
+        <?php
+            if(count($json_contact))
+            {
+                echo '<title> Profile '.$json_contact['GivenName'].' '.$json_contact['Surname'].' </title>';
+            }else{
+                echo '<title> No profile available </title>';
+            }
+        ?>
     </head>
     <body>
-        <h2>Contacts Orchestrator Solution</h2>
+
+        <h1>Profile :</h1>
+
+        <?php
+             if(count($json_contact))
+             {
+                  echo '<h2> '.$json_contact['GivenName'].' '.$json_contact['Surname'].' </h2>';
+             }
+        ?>
 
         <?php
             if(count($json_contact))
